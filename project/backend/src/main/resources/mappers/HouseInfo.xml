@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.houseInfo.model.mapper.HouseInfoDao">
+	<select id="getHouseDeal" parameterType="map" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		WHERE dongCode = #{code} AND dealYear LIKE #{year} AND dealMonth LIKE #{month}
+	</select>
+	
+	<select id="selectApt" parameterType="long" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi JOIN housedeal hd
+		USING (aptCode)
+		WHERE no = #{no}
+	</select>
+	
+	
+	<select id="selectHouseInfolist" resultType="HouseInfoDto">
+		SELECT aptCode, buildYear, roadName, roadNameBonbun, 
+		roadNameBubun, roadNameSeq, roadNameBasementCode, roadNameCode,
+		dong, bonbon, bubun, sigunguCode, eubmyundongCode, dongCode, 
+		landCode, apartmentName, jibun, lng, lat
+		FROM houseinfo
+	</select>
+	
+	<select id="selectHouseInfoOne" parameterType="long" resultType="HouseInfoDto">
+		SELECT aptCode, buildYear, roadName, roadNameBonbun, 
+		roadNameBubun, roadNameSeq, roadNameBasementCode, roadNameCode,
+		dong, bonbon, bubun, sigunguCode, eubmyundongCode, dongCode, 
+		landCode, apartmentName, jibun, lng, lat
+		FROM houseinfo
+		WHERE aptCode = #{aptCode};
+	</select>
+	
+	<select id="getAptDealHistory" parameterType="string" resultType="HouseCombDealDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor, hd.dealYear, hd.dealMonth, hd.dealDay
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		WHERE aptCode = #{aptCode}
+	</select>
+	
+	<select id="getAvgDealBydealYear" resultType="map">
+		SELECT min(CAST(REPLACE(REPLACE(dealAmount, ",", ""), ".", "") AS DECIMAL(10, 2))) AS minDeal, 
+       	avg(CAST(REPLACE(REPLACE(dealAmount, ",", ""), ".", "") AS DECIMAL(10, 2))) AS avgDeal,
+       	max(CAST(REPLACE(REPLACE(dealAmount, ",", ""), ".", "") AS DECIMAL(10, 2))) AS maxDeal,
+       	dealYear FROM housedeal GROUP BY dealYear
+	</select>
+	
+	<select id="getAvgDealBydealYearConcern" resultType="map">
+		SELECT hd.dealYear, hi.dongCode, avg(CAST(REPLACE(REPLACE(dealAmount, ",", ""), ".", "") AS DECIMAL(10, 2))) AS avgDeal
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		<choose>
+            <when test="list.size != 0">
+                where hi.dongCode in 
+                <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+                    #{item}
+                </foreach>
+            </when>
+        </choose>
+        Group BY hd.dealYear, hi.dongCode;
+	</select>
+	
+</mapper>

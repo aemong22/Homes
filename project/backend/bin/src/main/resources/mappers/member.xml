@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.member.model.mapper.MemberDao">
+		<resultMap type="memberDto" id="member">
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_password" property="userPwd"/>
+		<result column="email_id" property="emailId"/>
+		<result column="email_domain" property="emailDomain"/>
+		<result column="user_phone" property="phonenumber"/>
+		<result column="address" property="address"/>
+		<result column="admin" property="admin"/>
+	</resultMap>
+	
+	
+	<!-- 로그인 처리 -->
+	<select id="login" parameterType="memberDto"
+		resultType="MemberDto">
+		SELECT user_id, user_name, admin
+		FROM members
+		WHERE user_id = #{userId} AND user_password = #{userPwd}
+	</select>
+
+	<insert id="insert" parameterType="memberDto">
+		INSERT INTO members (user_id,
+		user_name, user_password, email_id, email_domain,user_phone, address)
+		VALUES (#{userId}, #{userName}, #{userPwd}, #{emailId},
+		#{emailDomain}, #{phonenumber}, #{address})
+	</insert>
+
+	<select id="getCount" resultType="int" parameterType="String">
+		SELECT
+		COUNT(*)
+		FROM members
+		WHERE user_id =#{userId}
+	</select>
+	
+	<select id="select" resultMap="member" parameterType="String">
+		SELECT user_id, user_name, user_password, email_id, email_domain,user_phone, address
+		FROM members
+		WHERE user_id = #{userId}
+	</select>
+	
+	<update id="update" parameterType="memberDto">
+		UPDATE members
+		SET
+		user_id = #{userId},
+		user_name = #{userName},
+		user_password = #{userPwd},
+		email_id = #{emailId},
+		email_domain = #{emailDomain},
+		user_phone = #{phonenumber},
+		address = #{address}
+		WHERE user_id = #{userId}
+	</update>
+	
+	<delete id = "delete" parameterType = "String">
+		DELETE FROM members
+     	WHERE user_id = #{userId}
+	</delete>
+	
+	<!-- 관리자 모드 : 회원 전체 목록 가져오기  -->
+	<select id="getUsers" resultMap="member" parameterType="String">
+		SELECT user_id, user_name, user_password, email_id, email_domain,user_phone, address, admin
+		FROM members
+	</select>
+	
+		<!-- 관리자 모드 : 회원 검색 목록 가져오기  -->
+	<select id="searchUsers" resultMap="member" parameterType="String">
+		SELECT user_id, user_name, user_password, email_id, email_domain,user_phone, address, admin
+		FROM members
+		WHERE user_id like concat('%',#{user_id},'%')
+	</select>
+
+</mapper>

@@ -1,0 +1,64 @@
+.comment_user {
+  font-size: 14px;
+  color: gray;
+}
+
+.comment_content {
+  font-size:13px;
+}
+
+.qna_content {
+  background-color: #f8f9fa;
+  font-size:14px;
+}
+
+.qna_header {
+  background-color: #ffffff !important;
+  font-size: 17px;
+  border: none !important;
+  outline: 0;
+  box-shadow: none !important;
+}
+
+.qna_header:hover {
+  color: #4b89dc;
+  background-color: #f1f3f5;
+}
+
+.qna_header:focus {
+  background-color: white !important;
+  color: #4b89dc;
+}
+
+.card_header {
+  background-color: #ffffff;
+  box-shadow: none !important;
+}
+
+.card_header:hover {
+  box-shadow: none !important;
+  
+}
+
+.qna_card {
+  border: none;
+  box-shadow: none !important;
+  
+}
+
+.comment_write {
+  box-shadow: none !important;
+  border: solid 1px #d6d6d6;
+}
+
+.comment_write:focus{
+  border: solid 1px #d6d6d6;
+}
+
+.qna_table_header {
+  border-radius: 20px;
+  background-color: #ffffff;
+  border: solid 1px #d6d6d6;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+

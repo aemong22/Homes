@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.concern.model.mapper.ConcernDao">
+	<select id="ckConcern" parameterType="map" resultType="int">
+		SELECT count(*) 
+		FROM concern
+		WHERE user_id = #{userId} and dongCode = #{dongCode}
+	</select>
+	
+	<insert id="register" parameterType="map">
+		INSERT INTO concern (user_id, juso, dongCode)
+		VALUES (#{userId}, #{juso}, #{dongCode})
+	</insert>
+	
+	<delete id="deleteConcern" parameterType="map">
+		DELETE
+		FROM concern
+		WHERE user_id = #{userId} and dongCode = #{dongCode}
+	</delete>
+	
+	<select id="getlist" parameterType="string" resultType="ConcernDto">
+		SELECT concern_id, user_id, juso, dongCode 
+		FROM concern
+		WHERE user_id = #{userId}
+		ORDER BY concern_id desc 
+	</select>
+	
+	<select id="countlist" parameterType="string" resultType="int">
+		SELECT count(*)
+		FROM concern
+		WHERE user_id = #{userId}
+	</select>
+	
+	<select id="countlistAll" resultType="int">
+		SELECT count(*)
+		FROM concern
+	</select>
+	
+	<delete id="deleteAll" parameterType="string">
+		DELETE
+		FROM concern
+		WHERE user_id = #{userId}
+	</delete>
+
+</mapper>

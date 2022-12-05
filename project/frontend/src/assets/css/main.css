@@ -1,0 +1,100 @@
+/* header css */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'MonoplexKR-Regular';
+
+}
+
+a {
+    font-size: 16px;
+}
+#navbar {
+    box-shadow: 0 17px 20px -22px #d6d6d6d6;  
+}
+
+#logo {
+    font-size: 25px;
+    text-decoration: none !important;
+    color: black;
+}
+
+#mainbg {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url("@/assets/img/seoul3.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    height: 50vw;
+    max-height: 60vh;
+    font-size: 32px;
+    color: #ffffff;
+    flex-direction: column; 
+    justify-content: center; 
+    display: flex;
+}
+.subtitle {
+    font-size:20px;
+}
+.link {
+    color: black;
+    text-decoration: none !important;
+    padding-right: 30px;
+    font-family: 'MonoplexKR-Regular';
+}
+
+.link:hover {
+    color : #809BCE;
+}
+
+.joinform {
+    border-radius: 10px !important;
+}
+
+.joinform:focus {
+    outline: none;
+    box-shadow: none !important;
+    border: solid 1px #8da9c4;
+    background-color: aliceblue !important;
+}
+
+.hr-sect {
+    display: flex;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.35);
+    font-size: 14px;
+    margin: 12px 0px;
+}
+.confirmBtn {
+    border-radius: 10px;
+    background-color: #8da9c4;
+    padding: 3px;
+    color: #ffffff;
+    text-align: center;
+}
+.confirmBtn:hover {
+    background-color: #134074;
+}
+.hr-sect::before,
+.hr-sect::after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(102, 102, 102, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 16px;
+}
+.anotherBtn {
+    font-weight: bold;
+    color: #134074;
+}
+
+
+@font-face {
+    font-family: 'MonoplexKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_Monoplex-kr@1.0/MonoplexKR-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+

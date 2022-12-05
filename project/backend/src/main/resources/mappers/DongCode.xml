@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.houseInfo.model.mapper.DongCodeDao">
+
+
+	<select id="getSidoNames" resultType="map">
+		SELECT dongCode, sidoName 
+		FROM dongcode 
+		WHERE dongCode LIKE "__00000000"
+	</select>
+	
+	<select id="getGugunNames" parameterType="string" resultType="map">
+		SELECT dongCode, gugunName
+		FROM dongcode
+		WHERE dongCode LIKE CONCAT(#{sidoCode}, "___00000")
+		AND gugunName IS NOT NULL
+	</select>
+	
+	<select id="getDongNames" parameterType="string" resultType="map">
+		SELECT dongCode, dongName
+		from dongcode
+		WHERE dongCode LIKE CONCAT(#{gugunCode}, "___00")
+		AND dongName IS NOT NULL
+	</select>
+	
+	<select id="getSidoNameCount" resultType="int">
+		SELECT count(dongCode)
+		FROM dongcode 
+		WHERE dongCode LIKE "__00000000"
+	</select>
+
+</mapper>

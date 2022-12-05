@@ -1,0 +1,40 @@
+.profile-title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.profile-title:after {
+    content: "";
+    display: block;
+    width: 50px;
+    border-bottom: solid 2px #BDD8F1;
+    margin: 6px auto;
+  }
+
+  .menu {
+    text-align: center;
+    font-size: 13px;
+    /* border: solid 2px #d6d6d6; */
+    /* border-collapse: collapse; */
+  }
+
+  .selectMenu {
+    background: #000000;
+    color: #ffffff;
+    fill: #ffffff;
+    font-weight: medium;
+}
+
+.sub-info {
+    text-align: center;
+    font-size: 13px;
+    fill: #9D9D9D;
+    color: #9D9D9D;
+}
+.number {
+    font-size: 22px;
+    color : #BDD8F1;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom:5px;
+}

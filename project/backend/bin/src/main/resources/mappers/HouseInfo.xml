@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.pjt.houseInfo.model.mapper.HouseInfoDao">
+	<select id="getHouseDeal" parameterType="map" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		WHERE dongCode = #{code} AND dealYear LIKE #{year} AND dealMonth LIKE #{month}
+	</select>
+	
+	<select id="selectApt" parameterType="long" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi JOIN housedeal hd
+		USING (aptCode)
+		WHERE no = #{no}
+	</select>
+	
+	<select id="getHouseDealSort" parameterType="map" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		WHERE dongCode = #{code} AND dealYear LIKE #{year} AND dealMonth LIKE #{month}
+		<if test='sort.equals("area")'>
+			ORDER BY ${sort} desc;
+		</if>
+		<if test='sort.equals("dealAmount")'>
+			ORDER BY CAST(${sort} AS SIGNED) desc;
+		</if>
+	</select>
+	
+	<select id="getHouseDealSort2" parameterType="map" resultType="HouseCombDto">
+		SELECT no, hi.aptCode, hi.apartmentName, hi.dong, hi.buildYear, hi.jibun,
+		hd.dealAmount, hd.area, hd.floor
+		FROM houseinfo hi join housedeal hd
+		USING (aptCode)
+		WHERE dongCode = #{code} AND dealYear LIKE #{year} AND dealMonth LIKE #{month}
+		ORDER BY CAST(dealAmount AS SIGNED) desc;
+	</select>
+	
+	<insert id="insertHouseDeal" parameterType="map">
+		<selectKey resultType="long" keyProperty="no" order="BEFORE">
+			SELECT MAX(no) + 1 FROM housedeal
+		</selectKey>
+		INSERT INTO housedeal( no, dealAmount, dealYear, dealMonth, 
+		dealDay, area, floor, aptCode)
+		VALUES (#{no}, #{dealAmount}, #{dealYear}, #{dealMonth}, 
+		#{dealDay}, #{area}, #{floor}, #{aptCode});
+	</insert>
+	
+	<update id="updateHouseDeal" parameterType="map">
+		UPDATE housedeal 
+		SET dealAmount = #{dealAmount}
+		<!-- , dealYear = #{dealYear},  dealMonth = #{dealMonth}, dealDay = #{dealDay}, area = #{area}, floor = #{floor} -->
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="deleteHouseDeal" parameterType="long">
+		DELETE FROM housedeal 
+		WHERE no = #{no}
+	</delete>
+	
+	<insert id="insertHouseInfo" parameterType="map">
+		<selectKey resultType="long" keyProperty="aptCode" order="BEFORE">
+			SELECT MAX(aptCode) + 1 FROM houseinfo
+		</selectKey>
+		INSERT INTO housedeal( aptCode, buildYear, roadName, roadNameBonbun, 
+		roadNameBubun, roadNameSeq, roadNameBasementCode, roadNameCode,
+		dong, bonbon, bubun, sigunguCode, eubmyundongCode, dongCode, 
+		landCode, apartmentName, jibun, lng, lat)
+		VALUES (#{aptCode}, #{buildYear}, #{roadName}, #{roadNameBonbun}, 
+		#{roadNameBubun}, #{roadNameSeq}, #{roadNameBasementCode}, #{roadNameCode},
+		#{dong}, #{bonbon}, #{bubun}, #{sigunguCode},#{eubmyundongCode}, #{dongCode},
+		#{landCode}, #{apartmentName}, #{jibun}, #{lng}, #{lat});
+	</insert>
+	
+	<select id="selectHouseInfolist" resultType="HouseInfoDto">
+		SELECT aptCode, buildYear, roadName, roadNameBonbun, 
+		roadNameBubun, roadNameSeq, roadNameBasementCode, roadNameCode,
+		dong, bonbon, bubun, sigunguCode, eubmyundongCode, dongCode, 
+		landCode, apartmentName, jibun, lng, lat
+		FROM houseinfo
+	</select>
+	
+	<select id="selectHouseInfoOne" parameterType="long" resultType="HouseInfoDto">
+		SELECT aptCode, buildYear, roadName, roadNameBonbun, 
+		roadNameBubun, roadNameSeq, roadNameBasementCode, roadNameCode,
+		dong, bonbon, bubun, sigunguCode, eubmyundongCode, dongCode, 
+		landCode, apartmentName, jibun, lng, lat
+		FROM houseinfo
+		WHERE aptCode = #{aptCode};
+	</select>
+	
+	<update id="updateHouseInfo" parameterType="houseInfoDto">
+		UPDATE houseinfo
+		SET aptCode = #{aptCode}, buildYear = #{buildYear}, 
+		roadName = #{roadName}, roadNameBonbun = #{roadNameBonbun}, 
+		roadNameBubun = #{roadNameBubun}, roadNameSeq = #{roadNameSeq}, 
+		roadNameBasementCode = #{roadNameBasementCode}, roadNameCode = #{roadNameCode},
+		dong = #{dong}, bonbon = #{bonbon}, 
+		bubun = #{bubun}, sigunguCode = #{sigunguCode}, 
+		eubmyundongCode = #{eubmyundongCode}, dongCode = #{dongCode}, 
+		landCode = #{landCode}, apartmentName = #{apartmentName}, 
+		jibun = #{jibun}, lng = #{lng}, lat = #{lat}
+		WHERE no = #{no}
+	</update>
+	
+	<delete id="deleteHouseInfo" parameterType="long">
+		DELETE FROM houseinfo 
+		WHERE aptCode = #{aptCode}
+	</delete>
+	
+</mapper>
