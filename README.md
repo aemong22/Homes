@@ -3,6 +3,10 @@
 
 아파트 및 연립 다세대 매매 정보 DATA를 바탕으로 전국 아파트, 연립다세대 주택의 부동산 정보와 흐름을 안내하고 정보를 나눌 수 있는 웹 서비스 입니다.
 <br><br>
+### 시연영상
+https://www.youtube.com/watch?v=SCdrygwarzU
+<br>
+<br>
 
 # 📌 기능
 <img width="800" alt="사용자와 관리자 기능" src="https://user-images.githubusercontent.com/109887404/205495860-76eb5b56-25d3-4101-a9bf-1462ba046f51.png">
